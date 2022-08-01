@@ -1,0 +1,24 @@
+<template>
+   <!-- <div class="slds-p-top_medium" id="map">
+        <lightning-card class="slds-p-around_large">
+            <lightning-map
+                map-markers={mapMarkers}
+                zoom-level="3"
+                list-view="hidden"
+            >   
+             </lightning-map>
+        </lightning-card> 
+    </div> -->
+  
+    <div class="slds-p-top_medium">
+        <lightning-card class="slds-p-around_large">
+            <lightning-button
+                name="new-with-defaults"
+                label="Go to New Contact with Defaults"
+                class="slds-m-around_medium"
+                onclick={navigateToNewContactWithDefaults}
+            ></lightning-button>
+        </lightning-card>
+    </div>
+   
+</template>

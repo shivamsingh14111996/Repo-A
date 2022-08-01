@@ -1,0 +1,30 @@
+<template>
+  <lightning-card title="Animals name from API callout" icon-name="custom:custom2">
+
+    <!--
+      <div>
+          <div class="slds-p-around_large">
+            <lightning-input label="percent" onkeyup={percentageValueHandler} value={percent} type="number"></lightning-input>
+          </div>
+          <c-second-lwc></c-second-lwc>
+      </div>
+    -->
+
+    
+
+    <div class="slds-p-around_large">
+      <lightning-button name="Get Animal" label="Get Animals" onclick={handleClick} ></lightning-button>
+
+      <h2>ANIMAL LIST</h2>
+      <template if:true={animalname} for:each={animalname} for:item="anim">
+        {anim}
+      </template>
+      <template if:true={animalname.error}>
+        {animalname.error}
+      </template>
+
+    </div>
+    
+  </lightning-card> 
+
+</template>

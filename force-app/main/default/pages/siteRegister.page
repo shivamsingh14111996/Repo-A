@@ -1,0 +1,138 @@
+<apex:page id="Registration" showHeader="false" controller="SiteRegisterController" title="{!$Label.site.register}"  cache="false" lightningStyleSheets="true" >
+    
+    <script type='text/javascript' src='https://www.google.com/recaptcha/api.js'/>
+    <script type='text/javascript'>
+        function recaptchaCallback() {
+        var btnVerify = document.getElementById("Registration:fm:pb:pbb:btnVerify");
+        if (btnVerify.classList.contains("hideButton") ) {
+            btnVerify.classList.remove("hideButton");
+        }
+    }
+    </script> 
+    
+    <style type="text/CSS">
+        .hideButton{
+        display:none !important;
+        }
+    </style>
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">  
+            <center>
+                <apex:panelGrid bgcolor="white" columns="1" style="width: 30%">
+                    <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="1" styleClass="topPanelContainer"> 
+                        <apex:outputPanel layout="block" styleClass="topPanel">
+                            <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="2"> 
+                                <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/clock.png')}"/>
+                                <apex:panelGroup >
+                                    <div style="text-align:center;">
+                                        <apex:image url="{!URLFOR($Resource.OSUNlogo)}" width="30%" />
+                                        <apex:form id="theForm" forceSSL="true">
+                                            <apex:pageMessages id="error"/>
+                                             <apex:actionFunction name="callRegesterUser" action="{!registerUser}"/>
+                                            <apex:slds />
+                                            <!-- start code -->
+                                            <div class="slds-form-element" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <div class="slds-p-top_medium">
+                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                                        <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
+                                                            <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#user')}"></use>
+                                                        </svg>
+                                                        <input type="text"  required="true" id="firstName" placeholder="FirstName" class="slds-input" onblur="document.getElementById('{!$Component.FirstNameHidden}').value = this.value;"/>
+                                                        <apex:inputHidden id="FirstNameHidden" value="{!FirstName}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-p-top_medium">
+                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                                        <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
+                                                            <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#user')}"></use>
+                                                        </svg>
+                                                        <input value="{!LastName}" type="text" id="text-input-id-47" placeholder="LastName" class="slds-input" />
+                                                    </div>
+                                                </div>
+                                                <div class="slds-p-top_medium">
+                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                                        <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
+                                                            <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#email')}"></use>
+                                                        </svg>
+                                                        <input value="{!email}" type="Email" id="text-input-id-47" placeholder="{!$Label.site.email}" class="slds-input" />
+                                                    </div>
+                                                </div>
+                                                <div class="slds-p-top_medium">
+                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                                        <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
+                                                            <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#unlock')}"></use>
+                                                        </svg>
+                                                        <input value="{!password}" type="Password" id="text-input-id-47" placeholder="{!$Label.site.password}" class="slds-input" />
+                                                    </div>
+                                                </div>
+                                                <div class="slds-p-top_medium">
+                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                                        <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
+                                                            <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#unlock')}"></use>
+                                                        </svg>
+                                                        <input value="{!confirmPassword}" type="Password" id="text-input-id-47" placeholder="{!$Label.site.confirm_password}" class="slds-input" />
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="slds-p-top_medium">
+                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                                        <!--apex:commandButton class="slds-button slds-button_brand" style="width : 600px;" 
+                                                                onclick="regesterUserJs();" value="Sign Up"></apex:commandButton -->
+                                                        <a onclick="myActionFunction();"  style="width : 600px;"  class="slds-button slds-button_icon slds-button_icon-brand" title="Create Contact">
+                                                            
+                                                            Sign Up
+                                                        </a>
+                                                    	<!--input class="slds-button slds-button_brand" style="width : 600px;" 
+                                                                onclick="myActionFunction();"> Sign Up </input -->
+                                                        <apex:actionFunction name="myActionFunction" action="{!registerUser}" reRender=""  >
+                                                    	</apex:actionFunction>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-p-top_medium slds-align_absolute-center">
+                                                <div style="transform: scale(0.77);  
+                                                            -webkit-transform: scale(0.77); transform-origin: 0 0;
+                                                            -webkit-transform-origin: 0 0; text-align:center;"
+                                                     data-type="image" 
+                                                     class="g-recaptcha" 
+                                                     data-sitekey="{!publicKey}" 
+                                                     data-callback="recaptchaCallback">
+                                                </div>
+                                            </div>
+                                            <!-- end code -->
+                                            
+                                            <!--  <apex:panelGrid columns="2" style="margin-top:1em;">
+<apex:outputLabel value="FirstName" for="FirstName"/>
+<apex:inputText required="true" id="FirstName" value="{!FirstName}"/>
+<apex:outputLabel value="LastName" for="LastName"/>
+<apex:inputText required="true" id="LastName" value="{!LastName}"/>
+<apex:outputLabel value="{!$Label.site.username}" for="username"/>
+<apex:inputText required="true" id="username" value="{!username}"/>
+<apex:outputLabel value="{!$Label.site.community_nickname}" for="communityNickname"/>
+<apex:inputText required="true" id="communityNickname" value="{!communityNickname}"/> 
+<apex:outputLabel value="{!$Label.site.email}" for="email"/>
+<apex:inputText required="true" id="email" value="{!email}"/>
+<apex:outputLabel value="{!$Label.site.password}" for="password"/>
+<apex:inputSecret id="password" value="{!password}"/>
+<apex:outputLabel value="{!$Label.site.confirm_password}" for="confirmPassword"/>
+<apex:inputSecret id="confirmPassword" value="{!confirmPassword}"/>
+<apex:outputText value=""/>
+<apex:commandButton action="{!registerUser}" value="{!$Label.site.submit}" id="submit"/>
+</apex:panelGrid>  -->
+                                            
+          
+                                            
+                                        </apex:form>   
+                                    </div>
+                                    <br/>
+                                </apex:panelGroup>
+                            </apex:panelGrid> 
+                        </apex:outputPanel>
+                        <c:SitePoweredBy />
+                    </apex:panelGrid> 
+                </apex:panelGrid>
+            </center>
+            <br/>
+        </apex:define>
+    </apex:composition>                       
+</apex:page>
